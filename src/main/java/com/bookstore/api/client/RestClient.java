@@ -19,5 +19,4 @@ public class RestClient {
                 .contentType(ContentType.JSON)
                 .body(body);
     }
-
 }
