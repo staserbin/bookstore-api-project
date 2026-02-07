@@ -1,10 +1,12 @@
 package com.bookstore.api.model;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Author {
     private int id;
     private int idBook;
