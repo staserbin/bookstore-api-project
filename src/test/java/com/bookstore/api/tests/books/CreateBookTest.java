@@ -29,7 +29,7 @@ public class CreateBookTest extends BaseApiTest {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that a new book can be successfully created with valid data")
     void createBookSuccessTest() {
-        Book book = Allure.step("Build a Book object for the request", () ->
+        Book book = Allure.step("Build a valid book for the request", () ->
                 Book.builder()
                         .title("Test Book")
                         .description("Test Description")
@@ -63,6 +63,25 @@ public class CreateBookTest extends BaseApiTest {
             softly.assertThat(createdBook.getExcerpt())
                     .as("Book excerpt")
                     .isEqualTo(book.getExcerpt());
+        });
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verify that book can't be created w/o the required field 'publishDate'")
+    void missingRequiredFieldTest() {
+        Book invalidBook = Allure.step("Build a Book object for the request", () ->
+                Book.builder()
+                        .title("Test Book W/O Required Fields")
+                        .description("Test Description")
+                        .excerpt("Test Excerpt")
+                        .build()
+        );
+
+        Allure.step("Send POST request with incomplete book data", () -> {
+            books().createBook(invalidBook)
+                    .then()
+                    .statusCode(400);
         });
     }
 }
