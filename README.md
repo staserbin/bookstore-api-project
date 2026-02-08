@@ -29,7 +29,6 @@ Before running the tests locally, make sure you have:
 
 - **Java 21 (Temurin)** installed
 - **Git** installed
-- **Gradle Wrapper** - no need to install Gradle globally, the project includes `gradlew`
 - **Lombok** plugin installed in your IDE (e.g., IntelliJ IDEA) to properly process Lombok annotations
 - **Allure CLI** installed locally (optional but recommended to view reports):
 
