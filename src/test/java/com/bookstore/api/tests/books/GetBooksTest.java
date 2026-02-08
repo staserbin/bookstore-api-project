@@ -23,14 +23,15 @@ public class GetBooksTest extends BaseApiTest {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that all books can be successfully retrieved via GET request")
     void getAllBooksTest() {
-        Allure.step("Send GET request to retrieve all books");
-        List<Book> books = books().getAllBooks()
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .jsonPath()
-                .getList("", Book.class);
+        List<Book> books = Allure.step("Send GET request to retrieve all books", () ->
+            books().getAllBooks()
+                            .then()
+                            .statusCode(200)
+                            .extract()
+                            .body()
+                            .jsonPath()
+                            .getList("", Book.class)
+        );
 
         Allure.step("Validate that the list of books is not empty");
         assertThat(books)
