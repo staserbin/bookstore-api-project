@@ -3,6 +3,8 @@ package com.bookstore.api.tests.base;
 import com.bookstore.api.service.AuthorService;
 import com.bookstore.api.service.BookService;
 
+import java.time.LocalDateTime;
+
 
 public class BaseApiTest {
 
@@ -18,5 +20,9 @@ public class BaseApiTest {
 
     protected AuthorService authors() {
         return authorService.get();
+    }
+
+    protected String currentDateTime() {
+        return LocalDateTime.now().toString();
     }
 }

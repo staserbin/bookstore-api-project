@@ -11,9 +11,8 @@ import io.qameta.allure.SeverityLevel;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 
 @Epic("Books API")
@@ -24,11 +23,12 @@ public class GetBookByIdTest extends BaseApiTest {
     @InjectSoftAssertions
     SoftAssertions softly;
 
-    @ParameterizedTest
-    @CsvSource({"1"})
+    @Test
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that a book can be successfully retrieved by a valid ID")
-    void getBookByIdTest(int bookId) {
+    void getBookByIdTest() {
+        final int bookId = 1;
+
         Book book = Allure.step(
                 String.format("Send GET request to retrieve book by ID: %d", bookId),
                 () -> books().getBookById(bookId)
@@ -57,13 +57,14 @@ public class GetBookByIdTest extends BaseApiTest {
         });
     }
 
-    @ParameterizedTest
-    @CsvSource({"7777777"})
+    @Test
     @Severity(SeverityLevel.NORMAL)
-    @Description("Verify 404 is returned for a non-existent book")
-    void invalidBookIdTest(int bookId) {
+    @Description("Verify 404 is returned for a non-existing book")
+    void invalidBookIdTest() {
+        final int bookId = 7777777;
+
         Allure.step(
-                String.format("Send GET request for non-existent book with ID: %d", bookId),
+                String.format("Send GET request for a non-existing book with ID: %d", bookId),
                 () -> books().getBookById(bookId)
                         .then()
                         .statusCode(404)

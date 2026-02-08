@@ -14,8 +14,6 @@ import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.time.LocalDateTime;
-
 
 @Epic("Books API")
 @Feature("Create Book")
@@ -38,7 +36,7 @@ public class CreateBookTest extends BaseApiTest {
                         .description(DESCRIPTION)
                         .pageCount(777)
                         .excerpt(EXCERPT)
-                        .publishDate(LocalDateTime.now().toString())
+                        .publishDate(currentDateTime())
                         .build()
         );
 
@@ -77,6 +75,7 @@ public class CreateBookTest extends BaseApiTest {
                 Book.builder()
                         .title("Test Book W/O Required Fields")
                         .description(DESCRIPTION)
+                        .pageCount(30)
                         .excerpt(EXCERPT)
                         .build()
         );
