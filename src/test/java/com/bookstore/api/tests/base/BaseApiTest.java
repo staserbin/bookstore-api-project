@@ -4,6 +4,7 @@ import com.bookstore.api.service.AuthorService;
 import com.bookstore.api.service.BookService;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 
 public class BaseApiTest {
@@ -23,6 +24,6 @@ public class BaseApiTest {
     }
 
     protected String currentDateTime() {
-        return LocalDateTime.now().toString();
+        return LocalDateTime.now().truncatedTo(ChronoUnit.MICROS).toString();
     }
 }
