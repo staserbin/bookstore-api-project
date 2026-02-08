@@ -25,6 +25,9 @@ public class CreateBookTest extends BaseApiTest {
     @InjectSoftAssertions
     SoftAssertions softly;
 
+    private static final String DESCRIPTION = "Test Description";
+    private static final String EXCERPT = "Test Excerpt";
+
     @Test
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that a new book can be successfully created with valid data")
@@ -32,9 +35,9 @@ public class CreateBookTest extends BaseApiTest {
         Book book = Allure.step("Build a valid book for the request", () ->
                 Book.builder()
                         .title("Test Book")
-                        .description("Test Description")
+                        .description(DESCRIPTION)
                         .pageCount(777)
-                        .excerpt("Test Excerpt")
+                        .excerpt(EXCERPT)
                         .publishDate(LocalDateTime.now().toString())
                         .build()
         );
@@ -73,8 +76,8 @@ public class CreateBookTest extends BaseApiTest {
         Book invalidBook = Allure.step("Build a Book object for the request", () ->
                 Book.builder()
                         .title("Test Book W/O Required Fields")
-                        .description("Test Description")
-                        .excerpt("Test Excerpt")
+                        .description(DESCRIPTION)
+                        .excerpt(EXCERPT)
                         .build()
         );
 

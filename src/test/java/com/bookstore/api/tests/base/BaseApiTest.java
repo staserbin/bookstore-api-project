@@ -3,6 +3,7 @@ package com.bookstore.api.tests.base;
 import com.bookstore.api.service.AuthorService;
 import com.bookstore.api.service.BookService;
 
+
 public class BaseApiTest {
 
     private static final ThreadLocal<BookService> bookService =

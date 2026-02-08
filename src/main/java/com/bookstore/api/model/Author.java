@@ -2,6 +2,7 @@ package com.bookstore.api.model;
 
 import lombok.*;
 
+
 @Getter
 @Setter
 @Builder
