@@ -24,6 +24,6 @@ public class BaseApiTest {
     }
 
     protected String currentDateTime() {
-        return LocalDateTime.now().truncatedTo(ChronoUnit.MICROS).toString();
+        return LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).toString();
     }
 }
