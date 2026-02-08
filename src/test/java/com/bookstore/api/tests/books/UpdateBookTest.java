@@ -40,8 +40,8 @@ public class UpdateBookTest extends BaseApiTest {
                     .build()
         );
 
-        Book updatedBook = Allure.step(String.format("Send PUT request to update an existing book with ID: %d", bookId), () ->
-                books().updateBook(bookId, book)
+        Book updatedBook = Allure.step(String.format("Send PUT request to update an existing book with ID: %d", bookId),
+                () -> books().updateBook(bookId, book)
                         .then()
                         .statusCode(200)
                         .extract()
