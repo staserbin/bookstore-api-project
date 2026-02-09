@@ -1,5 +1,5 @@
 # bookstore-api-project
-API test automation framework for the Bookstore service using  **Java 21 (Temurin)**, **JUnit 5**, **RestAssured**, **Allure Reports**, and **AssertJ**.  
+API test automation framework for the Bookstore service using  **Java 21 (Temurin)**, **JUnit 5**, **Gradle**, **RestAssured**, **AssertJ**, and **Allure Reports**.  
 Tests cover **Books** and **Authors** endpoints with positive and negative scenarios.
 
 ---
