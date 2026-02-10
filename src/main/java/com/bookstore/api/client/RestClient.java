@@ -7,7 +7,7 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 
-public class RestClient {
+public abstract class RestClient {
 
     static {
         RestAssured.config = RestAssured.config()

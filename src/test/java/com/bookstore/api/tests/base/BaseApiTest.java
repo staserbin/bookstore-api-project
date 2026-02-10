@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 
-public class BaseApiTest {
+public abstract class BaseApiTest {
 
     private static final ThreadLocal<BookService> bookService =
             ThreadLocal.withInitial(BookService::new);
