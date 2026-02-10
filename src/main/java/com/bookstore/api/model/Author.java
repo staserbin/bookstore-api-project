@@ -9,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Author {
-    private int id;
-    private int idBook;
+    private Integer id;
+    private Integer idBook;
     private String firstName;
     private String lastName;
 }

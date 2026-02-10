@@ -9,10 +9,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book {
-    private int id;
+    private Integer id;
     private String title;
     private String description;
-    private int pageCount;
+    private Integer pageCount;
     private String excerpt;
     private String publishDate;
 }
