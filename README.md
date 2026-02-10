@@ -74,17 +74,3 @@ chmod +x gradlew
 1. The workflow is manually triggered via GitHub -> Actions -> Bookstore - API Tests -> Run workflow
 2. After completion, the Allure report is published to GitHub Pages
 3. The workflow prints the URL to the Allure report in the Actions build summary for easy access
-
-### Known Limitations / Not Implemented Cases
-
-- Book can be created without pageCount
-
-- PUT /api/v1/Books/{id} with non-existing ID always creates a book
-
-- DELETE /api/v1/Books/{id} with 9999999999 exceeds 32-bit integer
-
-- POST /api/v1/Authors without idBook succeeds
-
-- PUT /api/v1/Authors/{id} with non-existing ID always creates an author
-
-- DELETE /api/v1/Authors/{id} with 9999999999 exceeds 32-bit integer

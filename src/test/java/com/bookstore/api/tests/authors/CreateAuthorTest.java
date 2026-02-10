@@ -14,6 +14,9 @@ import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static com.bookstore.api.factory.AuthorFactory.buildAuthor;
+import static com.bookstore.api.steps.AuthorSteps.createAuthor;
+
 
 @Feature("Authors API")
 @Story("Create Author")
@@ -27,21 +30,13 @@ class CreateAuthorTest extends BaseApiTest {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that a new author can be successfully created")
     void createAuthorSuccessTest() {
-        Author author = Allure.step("Build a valid author for the request", () ->
-                Author.builder()
-                        .idBook(1)
-                        .firstName("Harry")
-                        .lastName("Potter")
-                        .build()
+        Author author = buildAuthor(
+                1,
+                "Harry",
+                "Potter"
         );
 
-        Author createdAuthor = Allure.step("Create a new author with a POST request", () ->
-                authors().createAuthor(author)
-                        .then()
-                        .statusCode(200)
-                        .extract()
-                        .as(Author.class)
-        );
+        Author createdAuthor = createAuthor(author);
 
         Allure.step("Validate that the author was created correctly", () -> {
             softly.assertThat(createdAuthor.getIdBook())

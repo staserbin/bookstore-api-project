@@ -1,5 +1,6 @@
 package com.bookstore.api.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 
@@ -8,6 +9,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Author {
     private Integer id;
     private Integer idBook;

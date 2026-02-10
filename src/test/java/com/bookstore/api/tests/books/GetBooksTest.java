@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.bookstore.api.steps.BookSteps.getBooks;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -23,15 +24,7 @@ public class GetBooksTest extends BaseApiTest {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that all books can be successfully retrieved via GET request")
     void getAllBooksTest() {
-        List<Book> books = Allure.step("Send GET request to retrieve all books", () ->
-            books().getAllBooks()
-                            .then()
-                            .statusCode(200)
-                            .extract()
-                            .body()
-                            .jsonPath()
-                            .getList("", Book.class)
-        );
+        List<Book> books = getBooks();
 
         Allure.step("Validate that the list of books is not empty");
         assertThat(books)

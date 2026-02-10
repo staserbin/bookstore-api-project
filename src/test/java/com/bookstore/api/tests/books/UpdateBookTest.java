@@ -1,5 +1,6 @@
 package com.bookstore.api.tests.books;
 
+import com.bookstore.api.factory.BookFactory;
 import com.bookstore.api.model.Book;
 import com.bookstore.api.tests.base.BaseApiTest;
 import io.qameta.allure.Allure;
@@ -13,6 +14,8 @@ import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import static com.bookstore.api.steps.BookSteps.updateBook;
 
 
 @Epic("Books API")
@@ -29,24 +32,16 @@ public class UpdateBookTest extends BaseApiTest {
     void updateBookSuccessTest() {
         final int bookId = 1;
 
-        Book book = Allure.step("Build a new valid book for the request", () ->
-                Book.builder()
-                    .id(bookId)
-                    .title("Updated Test Book")
-                    .description("Updated Description")
-                    .pageCount(333)
-                    .excerpt("Updated Excerpt")
-                    .publishDate(currentDateTime())
-                    .build()
+        Book book = BookFactory.buildBookWithId(
+                bookId,
+                "Updated Test Book",
+                "Updated Description",
+                333,
+                "Updated Excerpt",
+                currentDateTime()
         );
 
-        Book updatedBook = Allure.step(String.format("Send PUT request to update an existing book with ID: %d", bookId),
-                () -> books().updateBook(bookId, book)
-                        .then()
-                        .statusCode(200)
-                        .extract()
-                        .as(Book.class)
-        );
+        Book updatedBook = updateBook(bookId, book);
 
         Allure.step("Validate updated book fields", () -> {
             softly.assertThat(updatedBook.getId())

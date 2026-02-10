@@ -12,26 +12,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.bookstore.api.steps.AuthorSteps.getAuthors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Feature("Authors API")
-@Story("Get Author")
-class GetAuthorTest extends BaseApiTest {
+@Story("Get Authors")
+class GetAuthorsTest extends BaseApiTest {
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that all authors can be successfully retrieved via GET request")
     void getAllAuthorsTest() {
-        List<Author> authorsList = Allure.step("Send GET request to retrieve all authors", () ->
-                authors().getAllAuthors()
-                        .then()
-                        .statusCode(200)
-                        .extract()
-                        .body()
-                        .jsonPath()
-                        .getList("", Author.class)
-        );
+        List<Author> authorsList = getAuthors();
 
         Allure.step("Validate authors list is not empty");
         assertThat(authorsList)

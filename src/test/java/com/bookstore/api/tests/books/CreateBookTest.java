@@ -1,5 +1,6 @@
 package com.bookstore.api.tests.books;
 
+import com.bookstore.api.factory.BookFactory;
 import com.bookstore.api.model.Book;
 import com.bookstore.api.tests.base.BaseApiTest;
 import io.qameta.allure.Allure;
@@ -13,6 +14,9 @@ import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import static com.bookstore.api.steps.BookSteps.createBook;
+import static com.bookstore.api.steps.BookSteps.createBookExpectingFailure;
 
 
 @Epic("Books API")
@@ -30,23 +34,15 @@ public class CreateBookTest extends BaseApiTest {
     @Severity(SeverityLevel.CRITICAL)
     @Description("Verify that a new book can be successfully created with valid data")
     void createBookSuccessTest() {
-        Book book = Allure.step("Build a valid book for the request", () ->
-                Book.builder()
-                        .title("Test Book")
-                        .description(DESCRIPTION)
-                        .pageCount(777)
-                        .excerpt(EXCERPT)
-                        .publishDate(currentDateTime())
-                        .build()
+        Book book = BookFactory.buildBook(
+                "Test Book",
+                DESCRIPTION,
+                777,
+                EXCERPT,
+                currentDateTime()
         );
 
-        Book createdBook = Allure.step("Create a new book with a POST request", () ->
-                books().createBook(book)
-                        .then()
-                        .statusCode(200)
-                        .extract()
-                        .as(Book.class)
-        );
+        Book createdBook = createBook(book);
 
         Allure.step("Validate that the book was created correctly", () -> {
             softly.assertThat(createdBook.getTitle())
@@ -69,21 +65,31 @@ public class CreateBookTest extends BaseApiTest {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
-    @Description("Verify that book can't be created w/o the required field 'publishDate'")
-    void missingRequiredFieldTest() {
-        Book invalidBook = Allure.step("Build a Book object for the request", () ->
-                Book.builder()
-                        .title("Test Book W/O Required Fields")
-                        .description(DESCRIPTION)
-                        .pageCount(30)
-                        .excerpt(EXCERPT)
-                        .build()
+    @Description("Verify that book can't be created if the required field 'publishDate' is empty")
+    void emptyPublishDateFieldTest() {
+        Book invalidBook = BookFactory.buildBook(
+                "Test Book With Empty Field",
+                DESCRIPTION,
+                30,
+                EXCERPT,
+                ""
         );
 
-        Allure.step("Send POST request with incomplete book data", () -> {
-            books().createBook(invalidBook)
-                    .then()
-                    .statusCode(400);
-        });
+        createBookExpectingFailure(invalidBook);
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verify that book can't be created if the required field 'pageCount' is missed")
+    void missingPageCountFieldTest() {
+        Book invalidBook = BookFactory.buildBook(
+                "Test Book W/O Required Field",
+                DESCRIPTION,
+                null,
+                EXCERPT,
+                currentDateTime()
+        );
+
+        createBookExpectingFailure(invalidBook);
     }
 }

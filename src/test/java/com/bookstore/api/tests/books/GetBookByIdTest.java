@@ -14,6 +14,8 @@ import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static com.bookstore.api.steps.BookSteps.getBook;
+
 
 @Epic("Books API")
 @Feature("Get Book By Id")
@@ -29,14 +31,7 @@ public class GetBookByIdTest extends BaseApiTest {
     void getBookByIdTest() {
         final int bookId = 1;
 
-        Book book = Allure.step(
-                String.format("Send GET request to retrieve book by ID: %d", bookId),
-                () -> books().getBookById(bookId)
-                        .then()
-                        .statusCode(200)
-                        .extract()
-                        .as(Book.class)
-        );
+        Book book = getBook(bookId);
 
         Allure.step("Validate returned book fields", () -> {
             softly.assertThat(book.getId())
@@ -61,11 +56,11 @@ public class GetBookByIdTest extends BaseApiTest {
     @Severity(SeverityLevel.NORMAL)
     @Description("Verify 404 is returned for a non-existing book")
     void invalidBookIdTest() {
-        final int bookId = 7777777;
+        final int nonExistingBookId = 7777777;
 
         Allure.step(
-                String.format("Send GET request for a non-existing book with ID: %d", bookId),
-                () -> books().getBookById(bookId)
+                String.format("Send GET request for a non-existing book with ID: %d", nonExistingBookId),
+                () -> books().getBookById(nonExistingBookId)
                         .then()
                         .statusCode(404)
         );

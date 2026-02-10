@@ -14,6 +14,8 @@ import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static com.bookstore.api.steps.AuthorSteps.getAuthor;
+
 
 @Epic("Authors API")
 @Feature("Get Author By Id")
@@ -29,14 +31,7 @@ public class GetAuthorByIdTest extends BaseApiTest {
     void getAuthorByIdTest() {
         final int authorId = 1;
 
-        Author author = Allure.step(
-                String.format("Send GET request to retrieve author by ID: %d", authorId), () ->
-                authors().getAuthorById(1)
-                        .then()
-                        .statusCode(200)
-                        .extract()
-                        .as(Author.class)
-        );
+        Author author = getAuthor(authorId);
 
         Allure.step("Validate returned author fields", () -> {
             softly.assertThat(author.getId())
