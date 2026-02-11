@@ -15,6 +15,12 @@ public abstract class BaseApiTest {
     protected BookSteps bookSteps;
     protected AuthorSteps authorSteps;
 
+    @BeforeEach
+    void initSteps() {
+        bookSteps = new BookSteps(books());
+        authorSteps = new AuthorSteps(authors());
+    }
+
     private static final ThreadLocal<BookService> bookService =
             ThreadLocal.withInitial(BookService::new);
 
@@ -31,11 +37,5 @@ public abstract class BaseApiTest {
 
     protected String currentDateTime() {
         return LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS).toString();
-    }
-
-    @BeforeEach
-    void initSteps() {
-        bookSteps = new BookSteps(books());
-        authorSteps = new AuthorSteps(authors());
     }
 }
