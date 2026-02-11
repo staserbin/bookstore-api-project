@@ -12,15 +12,18 @@ src
 │   └── java
 │       └── com.bookstore.api
 │           ├── client        # Base REST client & request configuration
+│           ├── config        # API & test configuration
 │           ├── model         # POJO models (Book, Author)
-│           ├── service       # API service layer (BooksService, AuthorService)
-│           └── config        # API & test configuration
+│           └── service       # API service layer (BooksService, AuthorService)
 └── test
     └── java
         └── com.bookstore.api.tests
-            ├── base          # Base test setup
-            ├── books         # Books API tests
-            └── authors       # Authors API tests
+            ├── factory       # Test data factories
+            ├── steps         # Business-level API steps (test orchestration)
+            └── tests
+                ├── base      # Base test setup
+                ├── books     # Books API tests
+                └── authors   # Authors API tests
 ```
 
 ### Prerequisites
