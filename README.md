@@ -17,7 +17,7 @@ src
 │           └── service       # API service layer (BooksService, AuthorService)
 └── test
     └── java
-        └── com.bookstore.api.tests
+        └── com.bookstore.api
             ├── factory       # Test data factories
             ├── steps         # Business-level API steps (test orchestration)
             └── tests
