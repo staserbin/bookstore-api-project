@@ -24,7 +24,8 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build and run tests
-        run: ./gradlew clean test || true
+        run: ./gradlew clean test
+        continue-on-error: true
 
       - name: Generate Allure report
         run: ./gradlew allureReport
