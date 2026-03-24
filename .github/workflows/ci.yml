@@ -53,7 +53,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/reports/allure-report/*
           publish_branch: gh-pages
-          force_orphan: true
 
       - name: Add summary
         if: always()
